@@ -2,6 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import StudentManagement from './components/StudentManagement';
+import DeviceManagement from './components/DeviceManagement';
 import ProtectedRoute from './components/ProtectedRoute';
 import { isAuthenticated } from './services/authService';
 
@@ -21,6 +23,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/students" 
+            element={
+              <ProtectedRoute>
+                <StudentManagement />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/devices" 
+            element={
+              <ProtectedRoute>
+                <DeviceManagement />
               </ProtectedRoute>
             } 
           />

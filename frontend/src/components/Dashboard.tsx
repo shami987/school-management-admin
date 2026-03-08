@@ -1,16 +1,50 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Users, GraduationCap, Calendar, Settings, LogOut } from 'lucide-react';
 import { logout, getCurrentUser } from '../services/authService';
+import { getDashboardStats, DashboardStats } from '../services/dashboardService';
 import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const user = getCurrentUser();
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadStats();
+  }, []);
+
+  const loadStats = async () => {
+    try {
+      const data = await getDashboardStats();
+      setStats(data);
+    } catch (error) {
+      console.error('Failed to load stats:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
+
+  const handleStudentManagement = () => {
+    navigate('/students');
+  };
+
+  const handleDeviceManagement = () => {
+    navigate('/devices');
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -47,7 +81,7 @@ const Dashboard: React.FC = () => {
               <Users className="h-8 w-8 text-blue-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Students</p>
-                <p className="text-2xl font-semibold text-gray-900">1,234</p>
+                <p className="text-2xl font-semibold text-gray-900">{stats?.totalStudents || 0}</p>
               </div>
             </div>
           </div>
@@ -57,7 +91,7 @@ const Dashboard: React.FC = () => {
               <Users className="h-8 w-8 text-green-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Teachers</p>
-                <p className="text-2xl font-semibold text-gray-900">56</p>
+                <p className="text-2xl font-semibold text-gray-900">{stats?.totalTeachers || 0}</p>
               </div>
             </div>
           </div>
@@ -67,7 +101,7 @@ const Dashboard: React.FC = () => {
               <GraduationCap className="h-8 w-8 text-purple-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Total Classes</p>
-                <p className="text-2xl font-semibold text-gray-900">24</p>
+                <p className="text-2xl font-semibold text-gray-900">{stats?.totalClasses || 0}</p>
               </div>
             </div>
           </div>
@@ -77,7 +111,7 @@ const Dashboard: React.FC = () => {
               <Calendar className="h-8 w-8 text-orange-600" />
               <div className="ml-4">
                 <p className="text-sm font-medium text-gray-600">Pending Devices</p>
-                <p className="text-2xl font-semibold text-gray-900">8</p>
+                <p className="text-2xl font-semibold text-gray-900">{stats?.pendingDevices || 0}</p>
               </div>
             </div>
           </div>
@@ -92,7 +126,10 @@ const Dashboard: React.FC = () => {
             <p className="text-gray-600 mb-4">
               Manage student records, enrollment, and academic information.
             </p>
-            <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <button 
+              onClick={handleStudentManagement}
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
               Manage Students
             </button>
           </div>
@@ -104,7 +141,10 @@ const Dashboard: React.FC = () => {
             <p className="text-gray-600 mb-4">
               Review and approve pending device registration requests.
             </p>
-            <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            <button 
+              onClick={handleDeviceManagement}
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            >
               Review Devices
             </button>
           </div>
