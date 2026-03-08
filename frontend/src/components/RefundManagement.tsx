@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Check, X, DollarSign } from 'lucide-react';
 import { getAllRefunds, approveRefund, rejectRefund, Refund } from '../services/refundService';
 
@@ -8,11 +8,7 @@ const RefundManagement: React.FC = () => {
   const [actionLoading, setActionLoading] = useState<string | null>(null);
   const [filter, setFilter] = useState<string>('');
 
-  useEffect(() => {
-    loadRefunds();
-  }, [filter]);
-
-  const loadRefunds = async () => {
+  const loadRefunds = useCallback(async () => {
     try {
       const data = await getAllRefunds(filter || undefined);
       setRefunds(data);
@@ -21,7 +17,11 @@ const RefundManagement: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [filter]);
+
+  useEffect(() => {
+    loadRefunds();
+  }, [loadRefunds]);
 
   const handleApprove = async (id: string) => {
     setActionLoading(id);

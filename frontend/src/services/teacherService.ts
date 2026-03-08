@@ -8,6 +8,11 @@ export interface Teacher {
   subject?: string;
   phone?: string;
   createdAt: string;
+  teacherProfile?: {
+    id: string;
+    subject?: string;
+    phone?: string;
+  };
 }
 
 export interface CreateTeacherData {
