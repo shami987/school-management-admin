@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import StudentManagement from './components/StudentManagement';
+import TeacherManagement from './components/TeacherManagement';
+import ClassManagement from './components/ClassManagement';
 import DeviceManagement from './components/DeviceManagement';
 import ProtectedRoute from './components/ProtectedRoute';
 import { isAuthenticated } from './services/authService';
@@ -31,6 +33,22 @@ function App() {
             element={
               <ProtectedRoute>
                 <StudentManagement />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/teachers" 
+            element={
+              <ProtectedRoute>
+                <TeacherManagement />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/classes" 
+            element={
+              <ProtectedRoute>
+                <ClassManagement />
               </ProtectedRoute>
             } 
           />

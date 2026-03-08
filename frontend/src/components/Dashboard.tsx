@@ -118,7 +118,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Student Management
@@ -136,6 +136,36 @@ const Dashboard: React.FC = () => {
 
           <div className="bg-white rounded-lg shadow p-6">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Teacher Management
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Add, edit, and manage teacher accounts and profiles.
+            </p>
+            <button 
+              onClick={() => navigate('/teachers')}
+              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            >
+              Manage Teachers
+            </button>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              Class Management
+            </h3>
+            <p className="text-gray-600 mb-4">
+              Create and manage classes, grades, and sections.
+            </p>
+            <button 
+              onClick={() => navigate('/classes')}
+              className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700"
+            >
+              Manage Classes
+            </button>
+          </div>
+
+          <div className="bg-white rounded-lg shadow p-6">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">
               Device Verification
             </h3>
             <p className="text-gray-600 mb-4">
@@ -143,21 +173,9 @@ const Dashboard: React.FC = () => {
             </p>
             <button 
               onClick={handleDeviceManagement}
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+              className="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
             >
               Review Devices
-            </button>
-          </div>
-
-          <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              Academic Records
-            </h3>
-            <p className="text-gray-600 mb-4">
-              View and manage grades, attendance, and academic reports.
-            </p>
-            <button className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700">
-              View Records
             </button>
           </div>
         </div>
