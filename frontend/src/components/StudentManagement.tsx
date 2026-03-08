@@ -32,29 +32,14 @@ const StudentManagement: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center h-16">
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="flex items-center text-gray-600 hover:text-gray-900"
-            >
-              <ArrowLeft className="h-5 w-5 mr-2" />
-              Back to Dashboard
-            </button>
-          </div>
+    <div className="p-8">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-2xl font-bold text-gray-900">Student Management</h1>
+        <div className="flex items-center text-sm text-gray-600">
+          <Users className="h-5 w-5 mr-2" />
+          {students.length} Students
         </div>
       </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">Student Management</h1>
-          <div className="flex items-center text-sm text-gray-600">
-            <Users className="h-5 w-5 mr-2" />
-            {students.length} Students
-          </div>
-        </div>
 
         {students.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-6 text-center">
@@ -114,7 +99,6 @@ const StudentManagement: React.FC = () => {
             </table>
           </div>
         )}
-      </div>
     </div>
   );
 };
